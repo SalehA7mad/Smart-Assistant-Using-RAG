@@ -1,29 +1,19 @@
-# Simple RAG Lab
+# 🧠 Local RAG Knowledge Assistant (Modular Pipeline)
 
-Simple lab sequence:
+An end-to-end, modular **Retrieval-Augmented Generation (RAG)** pipeline and interactive **Streamlit** assistant built to ingest documents, preprocess text, generate vector embeddings, store them in **ChromaDB**, and answer context-grounded queries accurately.
 
-```text
-01_documents.py
-02_preprocessing.py
-03_chunking.py
-04_vector_representation.py
-05_create_chroma_store.py
-06_retrieve_context.py
-07_prompting.py
-streamlit_app.py
-```
+![Demo Preview](assets/demo.png)
 
-Final retrieval:
+---
+
+## 🏗️ Pipeline Architecture
+
+The system is decoupled into 7 clear, maintainable stages:
 
 ```text
-hybrid = 0.4 * BM25 + 0.6 * all-MiniLM-L6-v2 embeddings
-```
-
-Run manually:
-
-```powershell
-python -m pip install -r requirements.txt
-Copy-Item .env.example .env
-python 05_create_chroma_store.py
-streamlit run streamlit_app.py
-```
+[01_documents.py] ──▶ [02_preprocessing.py] ──▶ [03_chunking.py]
+                                                        │
+[07_prompting.py] ◀── [06_retrieve_context.py] ◀── [04 & 05 Chroma Vector Store]
+        │
+        ▼
+[streamlit_app.py] (Interactive Q&A Interface)
